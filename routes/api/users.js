@@ -19,7 +19,7 @@ const User = require("../../models/User");
 //@access public
 router.get("/test", (req, res) => res.json({ msg: "User Works" }));
 
-//@routes api/users/register
+//@routes POST api/users/register
 //@desc   Register User Route
 //@access public
 router.post("/register", (req, res) => {
@@ -62,7 +62,7 @@ router.post("/register", (req, res) => {
   });
 });
 
-//@routes api/users/login
+//@routes POST api/users/login
 //@desc   Login User / return JWT
 //@access public
 router.post("/login", (req, res) => {
@@ -81,7 +81,7 @@ router.post("/login", (req, res) => {
     //Check for user
     if (!user) {
       errors.email = "User not found";
-      return res.status(404).json(errors.email);
+      return res.status(404).json(errors);
     }
     //Check Password
     bcrypt.compare(password, user.password).then(isMatch => {
@@ -104,13 +104,13 @@ router.post("/login", (req, res) => {
         );
       } else {
         errors.password = "Password incorrect";
-        return res.status(400).json(errors.password);
+        return res.status(400).json(errors);
       }
     });
   });
 });
 
-//@routes api/users/current
+//@routes GET api/users/current
 //@desc   Login current user
 //@access private
 router.get(
