@@ -194,7 +194,7 @@ router.post(
         const newComment = {
           text: req.body.text,
           name: req.body.name,
-          avatar: req.body.avata,
+          avatar: req.body.avatar,
           user: req.user.id
         };
         //Add comment to array
@@ -235,7 +235,7 @@ router.delete(
           .map(item => item._id.toString())
           .indexOf(req.params.comment_id);
         //splice comment out of array
-        post.comments.splice(removeIndex);
+        post.comments.splice(removeIndex, 1);
         //save
         post
           .save()
